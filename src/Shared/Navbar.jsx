@@ -1,29 +1,41 @@
-function Navbar() {
+import Login from "./Login";
+import CreateAccount from "./CreateAccount";
+
+function NavBar() {
   return (
-    <nav className="bg-light border-bottom">
-      <div className="container-fluid ">
-        <ul className="nav justify-content-end py-1">
-          <li className="nav-item">
-            <a className="nav-link active" href="/">
-              Home
-            </a>
-          </li>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+      <div className="container">
+        <a className="navbar-brand fw-bold" href="/">
+          MyTodos
+        </a>
 
-          <li className="nav-item">
-            <a className="nav-link" href="/about">
-              About
-            </a>
-          </li>
+        <div className="ms-auto d-flex align-items-center">
+          <ul className="navbar-nav me-3">
+            <li className="nav-item">
+              <a href="/" className="nav-link">
+                Home
+              </a>
+            </li>
 
-          <li className="nav-item">
-            <a className="nav-link" href="/contact">
-              Contact
-            </a>
-          </li>
-        </ul>
+            <li className="nav-item">
+              <a href="/pricing" className="nav-link">
+                Pricing
+              </a>
+            </li>
+
+            <li className="nav-item">
+              <a href="/contact-us" className="nav-link">
+                Contact US
+              </a>
+            </li>
+          </ul>
+
+          <Login />
+          <CreateAccount />
+        </div>
       </div>
     </nav>
   );
 }
 
-export default Navbar;
+export default NavBar;
