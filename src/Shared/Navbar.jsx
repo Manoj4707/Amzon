@@ -1,5 +1,4 @@
 import Login from "./Login";
-import CreateAccount from "./CreateAccount";
 
 function NavBar() {
   return (
@@ -12,14 +11,14 @@ function NavBar() {
         <div className="ms-auto d-flex align-items-center">
           <ul className="navbar-nav me-3">
             <li className="nav-item">
-              <a href="/" className="nav-link">
-                Home
+              <a href="/login" className="nav-link">
+                Login
               </a>
             </li>
 
             <li className="nav-item">
-              <a href="/pricing" className="nav-link">
-                Pricing
+              <a href="/create-account" className="nav-link">
+                Create Account
               </a>
             </li>
 
@@ -29,9 +28,6 @@ function NavBar() {
               </a>
             </li>
           </ul>
-
-          <Login />
-          <CreateAccount />
         </div>
       </div>
     </nav>
