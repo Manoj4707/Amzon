@@ -1,88 +1,125 @@
 import amazonLogo from "../assets/logo-amzon.png";
+import { useState } from "react";
+import { signup } from "../services/authservices";
+import { Error_MSG } from "../constants/error";
+import { isEmailValid } from "../constants/validation";
 
 function Signup() {
+  const [signupData, setSignupData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [signupErrors, setSignupErrors] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
+
+  const [signupMessage, setSignupMessage] = useState("");
+
+  const updateSignupData = (field) => (event) => {
+    setSignupData((currentData) => ({
+      ...currentData,
+      [field]: event.target.value,
+    }));
+  };
+
+  const handleSignup = async () => {
+    setSignupMessage("");
+
+    const tempErrors = {
+      name: signupData.name.length < 3,
+      email: !isEmailValid(signupData.email),
+      password: signupData.password.length < 7,
+    };
+
+    setSignupErrors(tempErrors);
+
+    if (tempErrors.name || tempErrors.email || tempErrors.password) {
+      return;
+    }
+
+    try {
+      await signup(signupData);
+      setSignupMessage("Account created successfully!");
+    } catch (error) {
+      setSignupMessage(
+        error.response?.data?.message ||
+          error.message ||
+          "Signup failed. Please try again."
+      );
+    }
+  };
+
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-4">
-
-          <div className="text-center">
-            <img src={amazonLogo} className="logo-img" />
-          </div>
-
-          <div className="card">
-            <div className="card-body">
-
-              <h2>Create Account</h2>
-
-              <div className="mt-3">
-                <strong>Your name</strong>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Your full name"
-                />
-              </div>
-
-              <div className="mt-3">
-                <strong>Email</strong>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Email"
-                />
-              </div>
-
-              <div className="mt-3">
-                <strong>Password</strong>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                />
-
-                <div>
-                  <i className="bi bi-info-lg text-primary"></i>
-                  <span className="fs-6">
-                    Passwords must be at least 6 characters.
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <p>
-                  To verify your number, we will send you a text message with a
-                  temporary code. Message and data rates may apply.
-                </p>
-              </div>
-
-              <div className="mt-4">
-                <button className="btn btn-warning w-100">Create your Amazon account</button>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
+    <div className="container mt-5">
+      <div className="text-center">
+        <img src={amazonLogo} alt="Amazon Logo" width="150" />
       </div>
-      <>
-        <div className="text-center mt-3">
-          <div className="text-center mt-4">
-            <div className="d-flex justify-content-center gap-4">
-              <a href="#">Conditions of Use</a>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Help</a>
-            </div>
 
-            <p className="mt-3 text-muted">
-              © 1996-2024, Amazon.com, Inc. or its affiliates
-            </p>
-          </div>
-          <p>
-            Already have an account? <a href="/login">Sign-In</a>
-          </p>
+      <div className="card mx-auto mt-4 p-4" style={{ maxWidth: "400px" }}>
+        <h3>Create Account</h3>
+
+        <div className="mb-3">
+          <label>Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={signupData.name}
+            onChange={updateSignupData("name")}
+          />
+          {signupErrors.name && (
+            <small className="text-danger">
+              {Error_MSG.SIGNUP.NAME}
+            </small>
+          )}
         </div>
-      </>
+
+        <div className="mb-3">
+          <label>Email</label>
+          <input
+            type="email"
+            className="form-control"
+            value={signupData.email}
+            onChange={updateSignupData("email")}
+          />
+          {signupErrors.email && (
+            <small className="text-danger">
+              {Error_MSG.SIGNUP.EMAIL}
+            </small>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            value={signupData.password}
+            onChange={updateSignupData("password")}
+          />
+          {signupErrors.password && (
+            <small className="text-danger">
+              {Error_MSG.SIGNUP.PASSWORD}
+            </small>
+          )}
+        </div>
+
+        <button
+          className="btn btn-warning w-100"
+          onClick={handleSignup}
+        >
+          Create Account
+        </button>
+
+        {signupMessage && (
+          <small className="d-block mt-3 text-center text-danger">
+            {signupMessage}
+          </small>
+        )}
+      </div>
     </div>
   );
 }

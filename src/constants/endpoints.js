@@ -1,4 +1,5 @@
-export  const API_ENDPOINTS = {
-  SIGNUP: '/signup',
-  SIGNIN: '/signin',
-}
+export const API_END_POINTS = {
+  SIGNUP: "/api/std/create-acount",
+  SIGNIN: "/api/std/login",
+  FORGOT_PASSWORD: "/api/std/reset-password",
+};

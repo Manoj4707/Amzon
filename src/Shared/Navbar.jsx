@@ -1,31 +1,31 @@
-import Login from "./Login";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom">
       <div className="container">
-        <a className="navbar-brand fw-bold" href="/">
+        <Link className="navbar-brand fw-bold" to="/">
           MyTodos
-        </a>
+        </Link>
 
         <div className="ms-auto d-flex align-items-center">
           <ul className="navbar-nav me-3">
             <li className="nav-item">
-              <a href="/login" className="nav-link">
+              <Link to="/login" className="nav-link">
                 Login
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a href="/create-account" className="nav-link">
+              <Link to="/create-account" className="nav-link">
                 Create Account
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a href="/contact-us" className="nav-link">
+              <Link to="/contact-us" className="nav-link">
                 Contact US
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
