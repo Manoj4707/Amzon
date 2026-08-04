@@ -1,6 +1,7 @@
 import amazonLogo from "../assets/logo-amzon.png";
 import { useState } from "react";
 import { Error_MSG } from "../constants/error";
+import Footer from "./Footer";
 import { forgotPassword } from "../services/authservices";
 import { isEmailValid } from "../constants/validation";
 
@@ -79,6 +80,8 @@ function ForgotPassword() {
           </small>
         )}
       </form>
+
+      <Footer isAuthentication />
     </div>
   );
 }

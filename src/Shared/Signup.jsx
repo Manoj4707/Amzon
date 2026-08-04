@@ -2,6 +2,7 @@ import amazonLogo from "../assets/logo-amzon.png";
 import { useState } from "react";
 import { signup } from "../services/authservices";
 import { Error_MSG } from "../constants/error";
+import Footer from "./Footer";
 import { isEmailValid } from "../constants/validation";
 
 function Signup() {
@@ -120,6 +121,8 @@ function Signup() {
           </small>
         )}
       </div>
+
+      <Footer isAuthentication />
     </div>
   );
 }

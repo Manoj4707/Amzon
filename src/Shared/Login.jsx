@@ -2,6 +2,7 @@ import amazonLogo from "../assets/logo-amzon.png";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Error_MSG } from "../constants/error";
+import Footer from "./Footer";
 import { signin } from "../services/authservices";
 import { isEmailValid } from "../constants/validation";
 
@@ -108,6 +109,8 @@ function Login() {
           </small>
         )}
       </div>
+
+      <Footer isAuthentication />
     </div>
   );
 }
