@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+<<<<<<< Updated upstream
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -20,6 +21,9 @@ const phones = [
   "IQOO Neo 10",
   "POCO F7",
 ];
+=======
+import SearchBox from "../Products/SearchBox";
+>>>>>>> Stashed changes
 
 function NavBar() {
   const [category, setCategory] = useState("All");
