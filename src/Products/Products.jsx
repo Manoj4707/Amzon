@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Products() {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const selectedProduct = state?.selectedProduct;
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,8 +41,8 @@ function Products() {
     return () => controller.abort();
   }, []);
 
-  const showSelectionAlert = (product) => {
-    window.alert(`You selected: ${product.title}`);
+  const goToProductDetails = (product) => {
+    navigate(`/products/${product.id}`);
   };
 
   const displayedProducts = selectedProduct ? [selectedProduct] : products;
@@ -64,11 +65,11 @@ function Products() {
                 className="product-card card h-100 border-0 rounded-4 overflow-hidden"
                 role="button"
                 tabIndex={0}
-                onClick={() => showSelectionAlert(product)}
+                onClick={() => goToProductDetails(product)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    showSelectionAlert(product);
+                    goToProductDetails(product);
                   }
                 }}
                 onMouseEnter={() => setHoveredProductId(product.id)}
@@ -92,7 +93,7 @@ function Products() {
                       className="btn btn-warning mt-auto product-button"
                       onClick={(event) => {
                         event.stopPropagation();
-                        showSelectionAlert(product);
+                        goToProductDetails(product);
                       }}
                     >
                       View Product
