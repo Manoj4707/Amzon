@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import ReactImageMagnify from "react-image-magnify";
 
+
 function ProductDetails() {
   const { id } = useParams();
+  const [product, setProduct] = useState(null);
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
