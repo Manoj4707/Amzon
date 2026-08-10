@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-<<<<<<< Updated upstream
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -21,9 +20,6 @@ const phones = [
   "IQOO Neo 10",
   "POCO F7",
 ];
-=======
-import SearchBox from "../Products/SearchBox";
->>>>>>> Stashed changes
 
 function NavBar() {
   const [category, setCategory] = useState("All");
@@ -36,8 +32,10 @@ function NavBar() {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    setSearchTerm((currentTerm) => currentTerm.trim());
-    setShowSuggestions(Boolean(searchTerm.trim()));
+
+    const trimmedTerm = searchTerm.trim();
+    setSearchTerm(trimmedTerm);
+    setShowSuggestions(Boolean(trimmedTerm));
   };
 
   const selectSuggestion = (phone) => {
@@ -46,99 +44,123 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom">
-      <div className="container d-flex flex-wrap align-items-center gap-2">
-        <Link className="navbar-brand fw-bold" to="/">
-          AMZON
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <Link to="/" className="navbar-brand">
+          AMAZON
         </Link>
 
-        <form
-          className="order-3 order-lg-2 flex-grow-1 mx-lg-3"
-          onSubmit={handleSearch}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <div className="input-group position-relative">
-            <select
-              className="form-select w-auto"
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              aria-label="Search category"
-            >
-              <option>All</option>
-              <option>Mobiles</option>
-              <option>Laptops</option>
-              <option>Accessories</option>
-              <option>Tablets</option>
-            </select>
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search phones"
-              value={searchTerm}
-              onChange={(event) => {
-                setSearchTerm(event.target.value);
-                setShowSuggestions(true);
-              }}
-              onFocus={() => setShowSuggestions(true)}
-              aria-label="Search"
-            />
-            <button className="btn btn-warning" type="submit" aria-label="Search">
-              <FaSearch />
-            </button>
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-            {showSuggestions && searchTerm && suggestions.length > 0 && (
-              <div className="position-absolute top-100 start-0 end-0 z-3 mt-1 list-group shadow-sm">
-                {suggestions.map((phone) => (
-                  <button
-                    key={phone}
-                    type="button"
-                    className="list-group-item list-group-item-action text-start"
-                    onClick={() => selectSuggestion(phone)}
-                  >
-                    {phone}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </form>
-
-        <div className="order-2 order-lg-3 ms-lg-auto d-flex align-items-center">
-          <ul className="navbar-nav me-3">
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Login
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link to="/create-account" className="nav-link">
-                Create Account
-              </Link>
-            </li>
-
-            <li className="nav-item dropdown">
-              <button
-                type="button"
-                className="nav-link dropdown-toggle border-0 bg-transparent"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+        <div className="collapse navbar-collapse" id="navbarContent">
+          <form
+            className="order-3 order-lg-2 flex-grow-1 mx-lg-3"
+            onSubmit={handleSearch}
+          >
+            <div className="input-group position-relative">
+              <select
+                className="form-select w-auto"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                aria-label="Search category"
               >
-                Menu
+                <option>All</option>
+                <option>Mobiles</option>
+                <option>Laptops</option>
+                <option>Accessories</option>
+                <option>Tablets</option>
+              </select>
+
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Search phones"
+                value={searchTerm}
+                onChange={(event) => {
+                  setSearchTerm(event.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                aria-label="Search"
+              />
+
+              <button
+                className="btn btn-warning"
+                type="submit"
+                aria-label="Search"
+              >
+                <FaSearch />
               </button>
-              <ul className="dropdown-menu dropdown-menu-end">
-                <li>
-                  <Link to="/contact-us" className="dropdown-item">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/address" className="dropdown-item">
-                    Address
-                  </Link>
-                </li>
-              </ul>
-            </li>
-          </ul>
+
+              {showSuggestions &&
+                searchTerm &&
+                suggestions.length > 0 && (
+                  <div className="position-absolute top-100 start-0 end-0 z-3 mt-1 list-group shadow-sm">
+                    {suggestions.map((phone) => (
+                      <button
+                        key={phone}
+                        type="button"
+                        className="list-group-item list-group-item-action text-start"
+                        onClick={() => selectSuggestion(phone)}
+                      >
+                        {phone}
+                      </button>
+                    ))}
+                  </div>
+                )}
+            </div>
+          </form>
+
+          <div className="order-2 order-lg-3 ms-lg-auto d-flex align-items-center">
+            <ul className="navbar-nav me-3">
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/create-account" className="nav-link">
+                  Create Account
+                </Link>
+              </li>
+
+              <li className="nav-item dropdown">
+                <button
+                  type="button"
+                  className="nav-link dropdown-toggle border-0 bg-transparent"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Menu
+                </button>
+
+                <ul className="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <Link to="/contact-us" className="dropdown-item">
+                      Contact Us
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/address" className="dropdown-item">
+                      Address
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
