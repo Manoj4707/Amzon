@@ -116,10 +116,27 @@ function NavBar() {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link to="/contact-us" className="nav-link">
-                Contact US
-              </Link>
+            <li className="nav-item dropdown">
+              <button
+                type="button"
+                className="nav-link dropdown-toggle border-0 bg-transparent"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Menu
+              </button>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li>
+                  <Link to="/contact-us" className="dropdown-item">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/address" className="dropdown-item">
+                    Address
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
