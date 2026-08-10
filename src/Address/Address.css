@@ -1,0 +1,7 @@
+.address {
+  max-width: 720px;
+}
+
+.address-save-button {
+  align-self: flex-start;
+}
