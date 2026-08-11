@@ -23,9 +23,15 @@ const addressFields = [
   ["country", "Country", "text", "Please enter your country.", "col-12"],
 ];
 
+const geolocationErrorCodes = {
+  PERMISSION_DENIED: 1,
+  POSITION_UNAVAILABLE: 2,
+  TIMEOUT: 3,
+};
+
 const reverseGeocode = async ({ latitude, longitude }) => {
   const response = await fetch(
-    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&lat=${latitude}&lon=${longitude}`
+    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
   );
 
   if (!response.ok) {
@@ -101,14 +107,22 @@ function Address({ initialAddress = {}, onSave }) {
         }
       },
       (error) => {
-        setLocationError(
-          error.code === 1
-            ? "Location permission is required to detect your address."
-            : "Unable to detect your location. Please try again."
-        );
+        switch (error.code) {
+          case geolocationErrorCodes.PERMISSION_DENIED:
+            setLocationError("Please allow location access in your browser settings.");
+            break;
+          case geolocationErrorCodes.POSITION_UNAVAILABLE:
+            setLocationError("Your location is currently unavailable. Please try again.");
+            break;
+          case geolocationErrorCodes.TIMEOUT:
+            setLocationError("Location request timed out. Please try again.");
+            break;
+          default:
+            setLocationError("Unable to detect your location. Please try again.");
+        }
         setIsDetectingLocation(false);
       },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
     );
   };
 
